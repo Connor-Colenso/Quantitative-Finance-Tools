@@ -3,6 +3,7 @@ import rpy2.robjects.numpy2ri
 import matplotlib.pyplot as plt
 import scipy.stats
 import numpy as np
+from tools import estimate_parameters
 
 # Import R module.
 MASS = importr("MASS")
@@ -11,6 +12,12 @@ rpy2.robjects.numpy2ri.activate()
 
 
 def normal_qq_plot(data, name):
+    """
+    :param data: Data to be compared against.
+    :param name: Name of the plot.
+    :return: None.
+    """
+
     # Obtain gaussian approximation of data set.
     mu, sigma = estimate_parameters(data, len(data))
 
