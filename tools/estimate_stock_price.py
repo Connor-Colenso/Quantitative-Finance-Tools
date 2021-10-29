@@ -1,5 +1,5 @@
 import numpy as np
-from brownian_motion import geometric_brownian_motion
+from stock_data.brownian_motion import geometric_brownian_motion
 
 
 def estimate_stock_price(n, x0, t, mu, sigma, paths):
