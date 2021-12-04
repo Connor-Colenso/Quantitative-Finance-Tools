@@ -2,7 +2,7 @@ import numpy as np
 import tools.american_options.binomial_method.payoffs as payoffs
 
 
-def binomial_method(sigma, M, T, S, r, K, method):
+def binomial_method(sigma, M, T, S, r, K, D=0, method=1):
     """
     :param sigma: Volatility of the underlying.
     :param M: Number of periods the binomial method will cover.
@@ -10,6 +10,7 @@ def binomial_method(sigma, M, T, S, r, K, method):
     :param S: Underlying price at time t=0.
     :param r: Interest rate.
     :param K: Strike price.
+    :param D: Dividend yield.
     :param method: Specifies which binomial method to utilise. 1 for = 0.5 and 2 for alternative.
     :return: Price of the option.
     """
@@ -26,10 +27,9 @@ def binomial_method(sigma, M, T, S, r, K, method):
 
     elif method == 2:
 
-        u = 1.2
-        d = 0.8
-
-        p = (np.exp(r * dt) - d) / (u - d)
+        u = np.exp(sigma * np.sqrt(dt))
+        d = np.exp(sigma * np.sqrt(dt))
+        p = (np.exp((r - D) * dt) - d) / (u - d)
 
     else:
 
