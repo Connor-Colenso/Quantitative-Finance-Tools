@@ -28,7 +28,7 @@ def binomial_method(sigma, M, T, S, r, K, D=0, method=1):
     elif method == 2:
 
         u = np.exp(sigma * np.sqrt(dt))
-        d = np.exp(sigma * np.sqrt(dt))
+        d = 1/u
         p = (np.exp((r - D) * dt) - d) / (u - d)
 
     else:
