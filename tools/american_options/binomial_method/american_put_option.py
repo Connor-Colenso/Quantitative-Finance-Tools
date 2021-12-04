@@ -1,5 +1,5 @@
 import numpy as np
-from payoffs import american_put_payoff
+import tools.american_options.binomial_method.payoffs as payoffs
 
 
 def binomial_method(sigma, M, T, S, r, K, method):
@@ -49,14 +49,14 @@ def binomial_method(sigma, M, T, S, r, K, method):
 
     # Iterates over the final column values to generate payoff info.
     for i in range(M):
-        payoff_matrix[i, M - 1] = american_put_payoff(matrix[i, M - 1], K)
+        payoff_matrix[i, M - 1] = payoffs.american_put_payoff(matrix[i, M - 1], K)
 
     # Iterate from the 2nd furthest column at the lowest value first.
     for col in range(M - 2, -1, -1):
 
         # Prevents iterating over empty values in payoff_matrix.
         for row in range(0, col + 1):
-            val_1 = american_put_payoff(matrix[row, col], K)
+            val_1 = payoffs.american_put_payoff(matrix[row, col], K)
             val_2 = (p * payoff_matrix[row, col + 1] + (1 - p) * payoff_matrix[row + 1, col + 1]) * np.exp(-r * dt)
 
             # Take the greatest value of the two payoffs to prevent arbitrage.

@@ -9,9 +9,6 @@ def american_put_payoff(S, K):
 def american_chooser_payoff(S, K):
 
     if S <= K:
-
         return american_put_payoff(S, K)
-
     else:
-
         return american_call_payoff(S, K)
