@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 def payoff(S):
@@ -60,14 +59,14 @@ def binomial_method(payoff_function, sigma, M, T, S, r, method):
 
     #
     for i in range(M):
-        payoff_matrix[i, M - 1] = payoff(matrix[i, M - 1])
+        payoff_matrix[i, M - 1] = payoff_function(matrix[i, M - 1])
 
     # Iterate from the 2nd furthest column at the lowest value first.
     for col in range(M - 2, -1, -1):
 
         # Prevents iterating over empty values in payoff_matrix.
         for row in range(0, col + 1):
-            val_1 = payoff(matrix[row, col])
+            val_1 = payoff_function(matrix[row, col])
             val_2 = (p * payoff_matrix[row, col + 1] + (1 - p) * payoff_matrix[row + 1, col + 1]) * np.exp(-r * dt)
 
             # Take the greatest value of the two payoffs to prevent arbitrage.
@@ -75,12 +74,11 @@ def binomial_method(payoff_function, sigma, M, T, S, r, method):
 
     return payoff_matrix[0, 0]
 
-
-M = 4
-T = 1.5
-sigma = 0.3
-r = 0.05
-S = 100
-method = 2
-
-print(binomial_method(payoff_function=payoff, sigma=sigma, M=M, T=T, S=S, r=r, method=2))
+# Tests.
+# M = 4
+# T = 1.5
+# sigma = 0.3
+# r = 0.05
+# S = 100
+# method = 2
+# print(binomial_method(payoff_function=payoff, sigma=sigma, M=M, T=T, S=S, r=r, method=2))
