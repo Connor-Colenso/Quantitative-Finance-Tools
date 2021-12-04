@@ -25,6 +25,10 @@ def binomial_method(payoff_function, sigma, M, T, S, r, method):
     :return: Price of the option.
     """
 
+    # Initial setup variables.
+    dt = T / (M - 1)
+    matrix = np.zeros(shape=(M, M)) + S
+
     if method == 1:
 
         u = np.exp(r * dt) * (1 + np.sqrt(np.exp(sigma ** 2 * dt) - 1))
@@ -42,9 +46,7 @@ def binomial_method(payoff_function, sigma, M, T, S, r, method):
 
         raise Exception(f'Invalid method selected for binomial method (method={method})')
 
-    # Initial setup variables.
-    dt = T / (M - 1)
-    matrix = np.zeros(shape=(M, M)) + S
+
 
     # Iterate over the matrix of values and store the binomial tree.
     for i in range(M):
