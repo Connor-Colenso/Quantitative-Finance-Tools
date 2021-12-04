@@ -46,8 +46,6 @@ def binomial_method(payoff_function, sigma, M, T, S, r, method):
 
         raise Exception(f'Invalid method selected for binomial method (method={method})')
 
-
-
     # Iterate over the matrix of values and store the binomial tree.
     for i in range(M):
 
