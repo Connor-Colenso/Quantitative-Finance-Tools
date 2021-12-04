@@ -10,7 +10,7 @@ def binomial_method(sigma, M, T, S, r, K, D=0, method=1):
     :param S: Underlying price at time t=0.
     :param r: Interest rate.
     :param K: Strike price.
-    :param D: Dividend yield.
+    :param D: Continuous dividend yield over the lifetime of the option.
     :param method: Specifies which binomial method to utilise. 1 for = 0.5 and 2 for alternative.
     :return: Price of the option.
     """
