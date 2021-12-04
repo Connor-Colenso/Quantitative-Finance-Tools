@@ -11,8 +11,6 @@ def implied_probability(ticker, date):
 
         raise SystemExit('Invalid date for option chain.')
 
-    print(date)
-
     options_chain = data.option_chain(date)
 
     puts = options_chain.puts
@@ -24,7 +22,4 @@ def implied_probability(ticker, date):
     puts_prices = options_chain.puts.lastPrice
     calls_prices = options_chain.calls.lastPrice
 
-    calls_df = pd.DataFrame(puts_prices, puts_strikes)
-
-    print(calls_df)
-
+    print(pd.concat([puts_prices, puts_strikes]), axis=1)
