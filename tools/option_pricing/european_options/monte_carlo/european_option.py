@@ -2,7 +2,7 @@ import numpy as np
 from tools.estimate_stock_price import estimate_stock_price
 
 
-def call(k, n, x0, t, r, sigma, paths):
+def european_call(k, n, x0, t, r, sigma, paths):
     """
     :param k: Strike price of call option.
     :param n: Number of steps per simulation.
@@ -24,7 +24,7 @@ def call(k, n, x0, t, r, sigma, paths):
     return np.mean(end_prices) * np.exp(- r * t)
 
 
-def put(k, n, x0, t, r, sigma, paths):
+def european_put(k, n, x0, t, r, sigma, paths):
     """
     :param k: Strike price of call option.
     :param n: Number of steps per simulation.
