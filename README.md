@@ -1,3 +1,3 @@
-# Undergrad-Dissertation
+# Quantative Tools
 
-Shows numerous techniques from financial mathematics from simple stock price estimation to derivatives.
+Adds numerous techniques from financial mathematics from equities forecasting to complex financial derivative pricing tools. Can price European, American, Asian and certain exotic options utilising monte carlo simulations
