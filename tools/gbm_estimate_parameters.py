@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def estimate_parameters(x, t):
+def gbm_estimate_parameters(x, t):
     """
     :param x: GBM data in a list.
     :param t: End time of GBM.

@@ -3,7 +3,7 @@ import rpy2.robjects.numpy2ri
 import matplotlib.pyplot as plt
 import scipy.stats
 import numpy as np
-from tools import estimate_parameters
+from tools import gbm_estimate_parameters
 
 # Import R module.
 MASS = importr("MASS")
@@ -19,7 +19,7 @@ def normal_qq_plot(data, name):
     """
 
     # Obtain gaussian approximation of data set.
-    mu, sigma = estimate_parameters(data, len(data))
+    mu, sigma = gbm_estimate_parameters(data, len(data))
 
     # Obtain gaussian dist approximation of data set.
     lst = np.random.normal(loc=mu, scale=sigma, size=len(data))
