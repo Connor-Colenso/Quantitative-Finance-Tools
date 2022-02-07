@@ -1,4 +1,4 @@
-import stochastics.brownian_motion
+from stochastics.brownian_motion import brownian_motion
 import numpy as np
 
 
@@ -13,7 +13,7 @@ def geometric_brownian_motion(n, x0, t, mu, sigma):  # GBM Generator.
     """
 
     # Using Brownian motion function.
-    B = stochastics.brownian_motion(n)
+    B = brownian_motion(n)
 
     # We generate N values of t equally spread on [0,T].
     t = np.linspace(0, t, n)

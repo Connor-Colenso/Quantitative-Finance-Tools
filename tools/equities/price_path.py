@@ -1,10 +1,10 @@
-from stochastics import geometric_brownian_motion as gbm
+from stochastics.geometric_brownian_motion import geometric_brownian_motion as gbm
 import pandas_market_calendars as mcal
 import yfinance as yf
 import pandas as pd
 
 
-def price_path(ticker, model_start_date, model_end_date, drift, vol, exchange):
+def price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_name):
     """
     :param ticker: Ticker of the stock being modelled.
     :param model_start_date: Start date of the model in YYYY-MM-DD form.
