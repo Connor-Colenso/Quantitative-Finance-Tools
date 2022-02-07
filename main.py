@@ -10,7 +10,7 @@ def main():
     # print(price)
 
     df = correlation_matrix_generator(securities=['AAPL', 'MSFT', 'NVDA'], period='1y', visual=True,
-                                      img_name='image_dump/correlation_matrix', interval='1d')
+                                      img_name='correlation_matrix', interval='1d')
     print(df)
 
 
