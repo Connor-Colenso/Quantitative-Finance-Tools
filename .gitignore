@@ -1,3 +1,4 @@
 # Project exclude paths
 /venv/
 .png
+image_dump/*
