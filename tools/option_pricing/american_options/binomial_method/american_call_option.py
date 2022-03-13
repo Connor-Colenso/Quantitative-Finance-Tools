@@ -15,6 +15,8 @@ def binomial_method(sigma, M, T, S, r, K, D=0, method=1):
     :return: Price of the option.
     """
 
+    # TODO: Badly needs a rewrite to not be so inefficient with memory.
+
     # Initial setup variables.
     dt = T / (M - 1)
     matrix = np.zeros(shape=(M, M)) + S

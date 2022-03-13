@@ -7,41 +7,20 @@ import tools.utility.funds as funds
 from tools.utility.correlation_matrix import correlation_matrix_generator
 from tools.virtual_portfolio.portfolio import today, Portfolio
 from tools.virtual_portfolio.trade import Trade
+from tools.gbm_estimate_parameters import gbm_estimate_parameters
+from tools.equities.price_path import price_path
 import pandas as pd
 
 
 def main():
-    # Estimate stock price example:
 
-    # ticker = 'MSFT'
-    # model_start_date = '2015-01-01'
-    # model_end_date = '2016-01-01'
-    # exchange_name = 'NASDAQ'
-    #
-    # historical_data = yfinance.Ticker('MSFT').history(start='2013-01-01', end='2015-01-01')['Close']
-    #
-    # drift, vol = gbm_estimate_parameters(x=list(historical_data), t=len(historical_data) / 252)
-    # print(drift, vol)
-    #
-    # series = price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_name)
-    # plt.plot(series, color='red', label='Price projection')
-    #
-    # plt.plot(yfinance.Ticker('MSFT').history(start=model_start_date, end=model_end_date)['Close'], color='green', label='Historical data')
-    # plt.plot(historical_data, color='blue', label='Sample data')
-    #
-    # plt.legend()
-    # plt.xticks(rotation=45, ha='right')
-    # plt.title('MSFT Price Projection 2015-2018')
-    # plt.subplots_adjust(bottom=0.2)
-    # plt.savefig('TEST.png', dpi=1200)
-    # plt.show()
+    pass
+
+
+def vol_smile_test():
 
     stock_ticker = random.choice(sp())
-    # stock_ticker = 'MSFT'
-    future_measure = 4
     stock = yf.Ticker(stock_ticker)
-
-    strikes = []
 
     for date in stock.options:
         chain = stock.option_chain(date)
@@ -52,16 +31,41 @@ def main():
     plt.legend('PC')
     plt.xlabel('Strike')
     plt.ylabel('Implied Volatility')
-    plt.savefig(f'TEST-IMPLIED-{stock_ticker}.png', dpi=1200)
+    plt.savefig(f'image_dump/TEST-IMPLIED-{stock_ticker}.png', dpi=1200)
+    plt.show()
+
+
+def estimate_stock_price_test():
+    # Estimate stock price example:
+
+    ticker = 'MSFT'
+    model_start_date = '2015-01-01'
+    model_end_date = '2016-01-01'
+    exchange_name = 'NASDAQ'
+
+    historical_data = yf.Ticker('MSFT').history(start='2013-01-01', end='2015-01-01')['Close']
+
+    drift, vol = gbm_estimate_parameters(x=list(historical_data), t=len(historical_data) / 252)
+
+    series = price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_name)
+    plt.plot(series, color='red', label='Price projection')
+
+    plt.plot(yf.Ticker('MSFT').history(start=model_start_date, end=model_end_date)['Close'], color='green', label='Historical data')
+    plt.plot(historical_data, color='blue', label='Sample data')
+
+    plt.legend()
+    plt.xticks(rotation=45, ha='right')
+    plt.title('MSFT Price Projection 2015-2018')
+    plt.subplots_adjust(bottom=0.2)
+    plt.savefig(f'image_dump/vol_smile_dump/estimate_stock_price_test - {ticker}.png', dpi=1200)
     plt.show()
 
 
 def correlation_matrix_test():
     assets = funds.sp_500_stocks()[110:115]
 
-    correlation_matrix = correlation_matrix_generator(assets, period='1y', interval='1d', visual=True,
-                                                      img_name='TEST1')
-    print(assets)
+    correlation_matrix_generator(assets, period='1y', interval='1d', visual=True,
+                                 img_name='TEST1')
 
 
 def portfolio_test():
@@ -92,10 +96,10 @@ def portfolio_test():
     alpha_fund.abs_return_graph(name='Alpha Fund Portfolio')
     alpha_fund.correlation_matrix(name='Alpha Fund Portfolio')
 
-    print(alpha_fund.asset_list)
-
 
 if __name__ == '__main__':
-    # main()
+
     portfolio_test()
-    # correlation_matrix_test()
+    correlation_matrix_test()
+    estimate_stock_price_test()
+    vol_smile_test()
