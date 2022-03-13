@@ -11,7 +11,7 @@ def price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_na
     :param model_end_date: End date of the model in YYYY-MM-DD form.
     :param drift: Drift of the geometric Brownian motion.
     :param vol: Volatility of the geometric Brownian motion.
-    :param exchange: Exchange that the security is traded on.
+    :param exchange_name: Exchange that the security is traded on.
     :return: Price path as a pandas series.
     """
 

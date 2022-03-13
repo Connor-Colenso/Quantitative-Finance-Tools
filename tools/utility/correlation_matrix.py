@@ -42,7 +42,7 @@ def correlation_matrix_generator(securities, period='1y', visual=True, img_name=
 
     if visual:
         image = image_matrix(matrix=correlation_matrix, scale=50, add_corr=True)
-        image.save(f'{img_name}.png')
+        image.save(f'image_dump/{img_name}.png')
 
     return correlation_matrix
 

@@ -1,7 +1,7 @@
 from tools.option_pricing.european_options.analytic.european import c_bs, p_bs
 
 
-def implied_vol_call(x0, k, r, t, c):
+def call(x0, k, r, t, c):
     """
     :param x0: Spot price.
     :param k: Strike price.
@@ -38,7 +38,7 @@ def implied_vol_call(x0, k, r, t, c):
     return (a + b) / 2
 
 
-def implied_vol_put(x0, k, r, t, p):
+def put(x0, k, r, t, p):
     """
     :param x0: Spot price.
     :param k: Strike price.
