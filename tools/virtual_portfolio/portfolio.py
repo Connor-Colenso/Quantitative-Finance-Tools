@@ -159,12 +159,12 @@ class Portfolio:
         plt.savefig(f'image_dump/{name} - pie chart.png', dpi=100)
         plt.show()
 
-    def correlation_matrix(self, *, name, period='1y'):
+    def correlation_matrix(self, circle_mode=True, *, name, period='1y'):
 
         assets = [asset.ticker for asset in self.asset_list]
 
         correlation_matrix_generator(securities=assets, period=period, visual=True, img_name=name,
-                                     interval='1d')
+                                     interval='1d', circle_mode=circle_mode)
 
 
 

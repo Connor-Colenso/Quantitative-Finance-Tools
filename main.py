@@ -100,6 +100,6 @@ def portfolio_test():
 if __name__ == '__main__':
 
     portfolio_test()
-    correlation_matrix_test()
-    estimate_stock_price_test()
-    vol_smile_test()
+    # correlation_matrix_test()
+    # estimate_stock_price_test()
+    # vol_smile_test()

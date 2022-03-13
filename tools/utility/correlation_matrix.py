@@ -6,7 +6,7 @@ import itertools
 from tools.utility.pil_tools import text_manipulation
 
 
-def correlation_matrix_generator(securities, period='1y', visual=True, img_name='correlation_matrix', interval='1d'):
+def correlation_matrix_generator(securities, *, period='1y', visual=True, img_name='correlation_matrix', interval='1d', circle_mode=False):
     """
     :param securities: List of the securities to be correlated.
     :param period: Period of time over which the asset correlation will take place.
@@ -41,7 +41,7 @@ def correlation_matrix_generator(securities, period='1y', visual=True, img_name=
         correlation_matrix[name2][name1] = correlation
 
     if visual:
-        image = image_matrix(matrix=correlation_matrix, scale=50, add_corr=True)
+        image = image_matrix(matrix=correlation_matrix, scale=50, add_corr=True, circle_mode=circle_mode)
         image.save(f'image_dump/{img_name}.png')
 
     return correlation_matrix
