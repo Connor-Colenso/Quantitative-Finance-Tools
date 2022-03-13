@@ -2,3 +2,4 @@
 /venv/
 .png
 image_dump/*
+image_dump/vol_smile_dump/*
