@@ -18,20 +18,20 @@ def price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_na
     exchange = mcal.get_calendar(exchange_name)
     market_open_times = exchange.schedule(start_date=model_start_date, end_date=model_end_date)
 
-    yf_object = yf.Ticker(ticker)
+    asset = yf.Ticker(ticker)
 
     # Total trading days that the model covers.
     days = len(market_open_times)
 
     # Closest initial price to the model_start_date.
-    initial_price = yf_object.history(start=model_start_date, end=model_end_date)['Open'][0]
+    initial_price = asset.history(start=model_start_date, end=model_end_date)['Open'][0]
 
     # Use geometric Brownian motion to model the asset and assign to a time series.
     path = gbm(n=days, x0=initial_price, t=days / 252, mu=drift, sigma=vol)
     series = pd.DataFrame(path, index=market_open_times['market_open'].index, columns=['close'])
 
     # Find dividends in the models date range.
-    dividends_in_range = yf_object.dividends[model_start_date:model_end_date]
+    dividends_in_range = asset.dividends[model_start_date:model_end_date]
 
     # Implement dividends reductions.
     for date, dividend in dividends_in_range.iteritems():

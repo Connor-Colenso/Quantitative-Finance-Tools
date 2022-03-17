@@ -2,7 +2,7 @@ import random
 import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
-from tools.utility.funds import sp_500_stocks as sp
+from tools.utility.funds import sp_500_stocks as sp500
 import tools.utility.funds as funds
 from tools.utility.correlation_matrix import correlation_matrix_generator
 from tools.virtual_portfolio.portfolio import today, Portfolio
@@ -19,7 +19,7 @@ def main():
 
 def vol_smile_test():
 
-    stock_ticker = random.choice(sp())
+    stock_ticker = random.choice(sp500())
     stock = yf.Ticker(stock_ticker)
 
     for date in stock.options:
@@ -38,24 +38,29 @@ def vol_smile_test():
 def estimate_stock_price_test():
     # Estimate stock price example:
 
-    ticker = 'MSFT'
+    ticker = random.choice(sp500())
+
     model_start_date = '2015-01-01'
     model_end_date = '2016-01-01'
-    exchange_name = 'NASDAQ'
 
-    historical_data = yf.Ticker('MSFT').history(start='2013-01-01', end='2015-01-01')['Close']
+    input_data_start_date = '2013-01-01'
+    input_data_end_date = '2015-01-01'
+
+    exchange_name = 'NYSE'
+
+    historical_data = yf.Ticker(ticker).history(start=input_data_start_date, end=input_data_end_date)['Close']
 
     drift, vol = gbm_estimate_parameters(x=list(historical_data), t=len(historical_data) / 252)
 
     series = price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_name)
     plt.plot(series, color='red', label='Price projection')
 
-    plt.plot(yf.Ticker('MSFT').history(start=model_start_date, end=model_end_date)['Close'], color='green', label='Historical data')
+    plt.plot(yf.Ticker(ticker).history(start=model_start_date, end=model_end_date)['Close'], color='green', label='Historical data')
     plt.plot(historical_data, color='blue', label='Sample data')
 
     plt.legend()
     plt.xticks(rotation=45, ha='right')
-    plt.title('MSFT Price Projection 2015-2018')
+    plt.title(f'{ticker} Price Projection {model_start_date} to {model_end_date}')
     plt.subplots_adjust(bottom=0.2)
     plt.savefig(f'image_dump/vol_smile_dump/estimate_stock_price_test - {ticker}.png', dpi=1200)
     plt.show()
