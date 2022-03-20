@@ -10,6 +10,7 @@ from tools.virtual_portfolio.trade import Trade
 from tools.gbm_estimate_parameters import gbm_estimate_parameters
 from tools.equities.price_path import price_path
 import pandas as pd
+from tools.utility.vol_smile import vol_smile
 
 
 def main():
@@ -102,9 +103,15 @@ def portfolio_test():
     alpha_fund.correlation_matrix(name='Alpha Fund Portfolio')
 
 
+def vol_smile_test_2():
+
+    vol_smile(ticker='AAPL')
+
+
 if __name__ == '__main__':
 
-    portfolio_test()
+    # portfolio_test()
     # correlation_matrix_test()
     # estimate_stock_price_test()
     # vol_smile_test()
+    vol_smile_test_2()
