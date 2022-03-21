@@ -1,4 +1,6 @@
-from tools.option_pricing.european_options.analytic.european import c_bs, p_bs
+from tools.options.option_pricing.european.analytic.call import call as analytic_call
+from tools.options.option_pricing.european.analytic.put import put as analytic_put
+
 
 
 def call(x0, k, r, t, c):
@@ -27,7 +29,7 @@ def call(x0, k, r, t, c):
         m = (a + b) / 2  # Mid-point calculation.
 
         # Determine if we are above or below the root.
-        t1 = (c_bs(x0, k, r, t, a) - c) * (c_bs(x0, k, r, t, m) - c)
+        t1 = (analytic_call(x0, k, r, t, a) - c) * (analytic_call(x0, k, r, t, m) - c)
 
         if t1 < 0:
             b = m
@@ -64,7 +66,7 @@ def put(x0, k, r, t, p):
         m = (a + b) / 2  # Mid-point calculation.
 
         # Determine if we are above or below the root.
-        t1 = (p_bs(x0, k, r, t, a) - p) * (p_bs(x0, k, r, t, m) - p)
+        t1 = (analytic_put(x0, k, r, t, a) - p) * (analytic_put(x0, k, r, t, m) - p)
 
         if t1 < 0:
             b = m

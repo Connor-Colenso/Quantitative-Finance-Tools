@@ -1,5 +1,5 @@
 import numpy as np
-import tools.option_pricing.american_options.binomial_method.payoffs as payoffs
+import tools.options.option_pricing.american.binomial_method.payoffs as payoffs
 
 
 def binomial_method(sigma, M, T, S, r, K, D=0, method=1):

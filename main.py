@@ -18,24 +18,6 @@ def main():
     pass
 
 
-def vol_smile_test():
-
-    stock_ticker = random.choice(sp500())
-    stock = yf.Ticker(stock_ticker)
-
-    for date in stock.options:
-        chain = stock.option_chain(date)
-        plt.plot(chain.puts.strike, chain.puts.impliedVolatility, lw=1, color='red')
-        plt.plot(chain.calls.strike, chain.calls.impliedVolatility, lw=1, color='blue')
-
-    plt.title(f'Volatility Smile of {stock_ticker}')
-    plt.legend('PC')
-    plt.xlabel('Strike')
-    plt.ylabel('Implied Volatility')
-    plt.savefig(f'image_dump/TEST-IMPLIED-{stock_ticker}.png', dpi=1200)
-    plt.show()
-
-
 def estimate_stock_price_test():
     # Estimate stock price example:
 
@@ -103,7 +85,7 @@ def portfolio_test():
     alpha_fund.correlation_matrix(name='Alpha Fund Portfolio')
 
 
-def vol_smile_test_2():
+def vol_smile_test():
 
     vol_smile(ticker='AAPL')
 
@@ -113,5 +95,4 @@ if __name__ == '__main__':
     # portfolio_test()
     # correlation_matrix_test()
     # estimate_stock_price_test()
-    # vol_smile_test()
-    vol_smile_test_2()
+    vol_smile_test()
