@@ -45,7 +45,7 @@ def estimate_stock_price_test():
     plt.xticks(rotation=45, ha='right')
     plt.title(f'{ticker} Price Projection {model_start_date} to {model_end_date}')
     plt.subplots_adjust(bottom=0.2)
-    plt.savefig(f'image_dump/vol_smile_dump/estimate_stock_price_test - {ticker}.png', dpi=1200)
+    plt.savefig(f'image_dump/estimate_stock_price_test - {ticker}.png', dpi=1200)
     plt.show()
 
 
@@ -94,5 +94,5 @@ if __name__ == '__main__':
 
     # portfolio_test()
     # correlation_matrix_test()
-    # estimate_stock_price_test()
-    vol_smile_test()
+    estimate_stock_price_test()
+    # vol_smile_test()
