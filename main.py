@@ -14,7 +14,6 @@ from tools.utility.vol_smile import vol_smile
 
 
 def main():
-
     pass
 
 
@@ -38,7 +37,8 @@ def estimate_stock_price_test():
     series = price_path(ticker, model_start_date, model_end_date, drift, vol, exchange_name)
     plt.plot(series, color='red', label='Price projection')
 
-    plt.plot(yf.Ticker(ticker).history(start=model_start_date, end=model_end_date)['Close'], color='green', label='Historical data')
+    plt.plot(yf.Ticker(ticker).history(start=model_start_date, end=model_end_date)['Close'], color='green',
+             label='Historical data')
     plt.plot(historical_data, color='blue', label='Sample data')
 
     plt.legend()
@@ -86,13 +86,68 @@ def portfolio_test():
 
 
 def vol_smile_test():
-
     vol_smile(ticker='AAPL')
 
 
-if __name__ == '__main__':
+def greeks_test():
+    from tools.options.greeks.european.put.delta import delta
+    from tools.options.greeks.european.put.gamma import gamma
+    from tools.options.greeks.european.put.theta import theta
+    from tools.options.greeks.european.put.vega import vega
+    from tools.options.greeks.european.put.speed import speed
+    from tools.options.greeks.european.put.rho import rho
 
+    S_max = 300
+    S = np.linspace(1, S_max, S_max)
+
+    k = 150
+    r = 0.03
+    t = 1
+    sigma = 0.1
+    q = 0.3
+
+
+    put_delta_list = [delta(x0, k, r, t, sigma, q) for x0 in S]
+    put_gamma_list = [gamma(x0, k, r, t, sigma, q) for x0 in S]
+    put_theta_list = [theta(x0, k, r, t, sigma, q) for x0 in S]
+    put_rho_list = [rho(x0, k, r, t, sigma, q) for x0 in S]
+    put_speed_list = [speed(x0, k, r, t, sigma, q) for x0 in S]
+    put_vega_list = [vega(x0, k, r, t, sigma, q) for x0 in S]
+
+    fig, ((ax1, ax2, ax3), (ax4, ax5, ax6)) = plt.subplots(2, 3)
+    ax1.plot(S, put_delta_list)
+    ax1.title.set_text('Delta')
+    ax1.set_xticks([0, k, max(S)])
+
+    ax2.plot(S, put_gamma_list)
+    ax2.title.set_text('Gamma')
+    ax2.set_xticks([0, k, max(S)])
+
+    ax3.plot(S, put_theta_list)
+    ax3.title.set_text('Theta')
+    ax3.set_xticks([0, k, max(S)])
+
+    ax4.plot(S, put_rho_list)
+    ax4.title.set_text('Rho')
+    ax4.set_xticks([0, k, max(S)])
+
+    ax5.plot(S, put_speed_list)
+    ax5.title.set_text('Speed')
+    ax5.set_xticks([0, k, max(S)])
+
+    ax6.plot(S, put_vega_list)
+    ax6.title.set_text('Vega')
+    ax6.set_xticks([0, k, max(S)])
+
+    fig.suptitle('Greeks of a European Put Option as Underlying Varies')
+    fig.tight_layout()
+
+    plt.show()
+
+
+if __name__ == '__main__':
     # portfolio_test()
     # correlation_matrix_test()
-    estimate_stock_price_test()
+    # estimate_stock_price_test()
     # vol_smile_test()
+    greeks_test()
